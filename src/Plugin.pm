@@ -580,11 +580,11 @@ sub executeDynamicPlayListFilter {
 	my $filter = shift;
 	my $track = shift;
 	
-	my $request = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
-	if(!$request->getResult("result")) {
-		$log->warn("Custom Skip requires a license, obtain a license through License Manager plugin");
-		return 1;
-	}
+	#my $request = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
+	#if(!$request->getResult("result")) {
+	#	$log->warn("Custom Skip requires a license, obtain a license through License Manager plugin");
+	#	return 1;
+	#}
 	if(!defined($filter) || $filter->{'name'} eq 'Custom Skip') {
 		my $filter = getCurrentFilter($client);
 		my $secondaryFilter = getCurrentSecondaryFilter($client);
@@ -797,9 +797,9 @@ sub setMode {
 		Slim::Buttons::Common::popMode($client);
 		return;
 	}
-	my $licenseManager = isPluginsInstalled($client,'LicenseManagerPlugin');
-	my $validateRequest = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
-	my $licensed = $validateRequest->getResult("result");
+	my $licenseManager = 1; #isPluginsInstalled($client,'LicenseManagerPlugin');
+	#my $validateRequest = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
+	my $licensed = 1; #$validateRequest->getResult("result");
 
 	if($licenseManager && $licensed) {
 		my @listRef = ();
@@ -922,9 +922,9 @@ sub setModeMix {
 		Slim::Buttons::Common::popMode($client);
 		return;
 	}
-	my $licenseManager = isPluginsInstalled($client,'LicenseManagerPlugin');
-	my $validateRequest = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
-	my $licensed = $validateRequest->getResult("result");
+	my $licenseManager = 1; #isPluginsInstalled($client,'LicenseManagerPlugin');
+	#my $validateRequest = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
+	my $licensed = 1; #$validateRequest->getResult("result");
 
 	if($licenseManager && $licensed) {
 		my $selectedFilterType = $client->modeParam('filtertype');
@@ -2293,9 +2293,9 @@ sub handleWebList {
 	}
 	
 	$params->{'pluginCustomSkipVersion'} = $PLUGINVERSION;
-	$params->{'licensemanager'} = isPluginsInstalled($client,'LicenseManagerPlugin');
-	my $request = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
-	$params->{'licensed'} = $request->getResult("result");
+	$params->{'licensemanager'} = 1; #isPluginsInstalled($client,'LicenseManagerPlugin');
+	#my $request = Slim::Control::Request::executeRequest($client,['licensemanager','validate','application:CustomSkip']);
+	$params->{'licensed'} = 1; #$request->getResult("result");
 	return Slim::Web::HTTP::filltemplatefile($htmlTemplate, $params);
 }
 
